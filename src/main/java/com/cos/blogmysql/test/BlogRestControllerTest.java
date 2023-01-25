@@ -8,6 +8,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -68,5 +69,15 @@ public class BlogRestControllerTest {
 		user.setPassword(requestUser.getPassword());
 		user.setEmail(requestUser.getEmail());
 		return null;
+	}
+	
+	@DeleteMapping("/dummy/user/{id}")
+	public String deleteUser(@PathVariable int id) {
+		try {
+			userRepository.deleteById(id);
+		} catch (Exception e) {
+			return "삭제에 실패하였습니다. 해당 is는 DB에 없습니다.";
+		}
+		return "삭제되었습니다.";
 	}
 }
