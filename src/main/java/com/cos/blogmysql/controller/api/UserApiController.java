@@ -19,9 +19,8 @@ public class UserApiController {
 	
 	@PostMapping("/api/user")
 	public ResponseDto<Integer> save(@RequestBody User user) {
-		System.out.println("controller save 호출");
 		user.setRole(RoleType.USER);
 		int result = userService.회원가입(user);
-		return new ResponseDto<Integer>(HttpStatus.OK, result);
+		return new ResponseDto<Integer>(HttpStatus.OK.value(), result);
 	}
 }
