@@ -14,14 +14,12 @@ public class UserService {
 	private UserRepository userRepository;
 	
 	@Transactional
-	public int 회원가입(User user) {
-		try {
-			userRepository.save(user);
-			return 1;
-		} catch (Exception e) {
-			e.printStackTrace();
-			System.out.println("UserService 오류 : " + e.getMessage());
-		}
-		return -1;
+	public void 회원가입(User user) {
+		userRepository.save(user);
+	}
+	
+	@Transactional(readOnly = true)
+	public User 로그인(User user) {
+		return userRepository.findByUsernameAndPassword(user.getUsername(), user.getPassword());
 	}
 }
